@@ -87,4 +87,4 @@ int main(){
 
     }
 
-}
+}//don't forget edit to catch errors prevent crashing
