@@ -113,6 +113,8 @@ int main(){
     
     acc1.deposit(50000);
     acc1.checkBalance();
+
+    acc1.TransactionHistory();
     //acc1.AccountHolder="bit"; begets error as it is declared private
 
 
