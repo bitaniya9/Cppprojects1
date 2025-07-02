@@ -5,15 +5,36 @@
 #include <iomanip> //to use setprecision
 
 using namespace std;
+class Transaction{                                                              //set to public to access the parent method
+protected: //makes it accessable to child classes
+    string timestamp;
+    string description;
+    double balanceafter;
+    double amount;
+    
+    Transaction(string tstamp,string descrip,double balanceAfter,double amount){  
+        timestamp=tstamp;
+        description=descrip;
+        balanceafter=balanceAfter; 
+        amount=amt  
+    }
+    
+    void TransactionDetatils(){
+        cout<<ctime(&now)<<
+    }
+
+
+};
+
 class Account{          //class serves as a blueprint for objects
 private:   
     string AccountHolder;  //if you want to access these attributes use getters and setters
     string AccountNumber;
     double Balance;
-    //vector<string>Transactions;
+    vector<Transaction>Transactions;
 
 public:
-     void setAccountHolder(string accHolder){ AccountHolder=accHolder;} //setters have no return type
+    void setAccountHolder(string accHolder){ AccountHolder=accHolder;} //setters have no return type
     string getAccountHolder(){return AccountHolder;}
 
     void setAccountNumber(string accNumber){AccountNumber=accNumber;}
@@ -22,10 +43,17 @@ public:
     void setBalance(double balance){Balance=balance;}
     double getBalance(){return Balance;}
 
+    void getTransactHistory(){
+        for(int i=0;i<Transactions.size();i++){
+            cout<<Transactions[i]<<endl;
+        }
+    }
+
     Account(string accHolder,string accNumber,double balance){
         AccountHolder=accHolder;
         AccountNumber=accNumber;
         Balance=balance;
+        // vector<Transaction>Transaction;
 
     }
 
@@ -56,23 +84,7 @@ public:
 
 
 }; //semicolon is important after defining a class
-class Transaction:Account{
-public:
-    string timestamp;
-    string desciption;
-    string transactionId;
 
-    Transaction(string tstamp,string descipt,string transactId,string accHolder,string accNumber,double balance)
-        :Account(accHolder,accNumber,balance)
-    {   
-        timestamp=tstamp;
-        desciption=descipt;
-        transactionId=transactId;
-
-    }
-
-
-};
 int main(){
     Account acc1=Account("bit","100004545",569000.32);
     acc1.deposit(290.00);
