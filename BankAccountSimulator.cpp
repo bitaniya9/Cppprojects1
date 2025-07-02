@@ -6,23 +6,25 @@
 
 using namespace std;
 class Transaction{                                                              //set to public to access the parent method
-protected: //makes it accessable to child classes
+public: //makes it accessable to child classes
     string timestamp;
     string description;
     double balanceafter;
     double amount;
     
-    Transaction(string tstamp,string descrip,double balanceAfter,double amount){  
-        timestamp=tstamp;
+    Transaction(string descrip,double balanceAfter,double amt){  
         description=descrip;
         balanceafter=balanceAfter; 
-        amount=amt  
+        amount=amt;
+        time_t now=time(nullptr); //this the time that is not readable to people
+        timestamp=ctime(&now); //makes the time readable has a newline char at the end
+        timestamp.pop_back();      //removes the newline char
     }
     
-    void TransactionDetatils(){
-        cout<<ctime(&now)<<
+    void getTransactionDetatils()const{
+        cout<<fixed<<setprecision(2);
+        cout<<"[ "<<timestamp<<"] |"<<"description: |"<<description<<" |"<<"$"<<amount<<"| Balance: $"<<balanceafter<<"|"<<endl;
     }
-
 
 };
 
@@ -31,7 +33,7 @@ private:
     string AccountHolder;  //if you want to access these attributes use getters and setters
     string AccountNumber;
     double Balance;
-    vector<Transaction>Transactions;
+    vector<Transaction>transactions;
 
 public:
     void setAccountHolder(string accHolder){ AccountHolder=accHolder;} //setters have no return type
@@ -43,17 +45,13 @@ public:
     void setBalance(double balance){Balance=balance;}
     double getBalance(){return Balance;}
 
-    void getTransactHistory(){
-        for(int i=0;i<Transactions.size();i++){
-            cout<<Transactions[i]<<endl;
-        }
-    }
 
-    Account(string accHolder,string accNumber,double balance){
+
+    Account(string accHolder,string accNumber,double initBalance){
         AccountHolder=accHolder;
         AccountNumber=accNumber;
-        Balance=balance;
-        // vector<Transaction>Transaction;
+        Balance=initBalance;
+        transactions.push_back(Transaction("Account Opening",initBalance,initBalance)); //to initial balance becuase nothing will change initially
 
     }
 
@@ -63,9 +61,13 @@ public:
             return Balance;
         }
         Balance+=amountDepo;
+        transactions.push_back(Transaction("Deposit",amountDepo,Balance));
+
         cout<<fixed<<setprecision(2);
-        cout<<"Your Balance after depositing "<<amountDepo<<" is $"<<Balance<<endl;
+        cout<<"Deposit | $"<<amountDepo<<"| New Balance |"<<Balance<<"|"<<endl;
+        
         return Balance;
+        
 
     }
     double withdraw(double amountWithdraw){
@@ -74,12 +76,28 @@ public:
         }
         Balance=Balance-amountWithdraw;
 
+        transactions.push_back(Transaction("WithDrawal",amountWithdraw,Balance));
+        
         cout<<fixed<<setprecision(2);
-        cout<<"Your Balance after withdrawing "<<amountWithdraw<<" is $"<<Balance<<endl;
+        cout<<"Withdraw |$"<<amountWithdraw<<"| New Balance |"<<Balance<<"|"<<endl;
         return Balance;
+
+
     }
     void checkBalance(){
-        cout<<"Your current balance is "<<Balance<<endl;
+        cout<<"Current balance: $"<<Balance<<endl;
+    }
+
+    void TransactionHistory(){
+        cout<<"Transaction History for account: "<<AccountNumber<<endl;
+        cout<<"AccountHolder: "<<AccountHolder<<endl;
+        cout<<"----------------------------------------------------"<<endl;
+        
+        for(const auto& transact:transactions){
+            transact.getTransactionDetatils();
+        }
+       
+        checkBalance();
     }
 
 
@@ -88,7 +106,12 @@ public:
 int main(){
     Account acc1=Account("bit","100004545",569000.32);
     acc1.deposit(290.00);
+    acc1.checkBalance();
+
     acc1.withdraw(90.0);
+    acc1.checkBalance();
+    
+    acc1.deposit(50000);
     acc1.checkBalance();
     //acc1.AccountHolder="bit"; begets error as it is declared private
 
