@@ -7,11 +7,21 @@
 using namespace std;
 class Account{          //class serves as a blueprint for objects
 private:   
-    string AccountHolder;
+    string AccountHolder;  //if you want to access these attributes use getters and setters
     string AccountNumber;
     double Balance;
+    //vector<string>Transactions;
 
 public:
+     void setAccountHolder(string accHolder){ AccountHolder=accHolder;} //setters have no return type
+    string getAccountHolder(){return AccountHolder;}
+
+    void setAccountNumber(string accNumber){AccountNumber=accNumber;}
+    string getAccountNumber(){return AccountNumber;}
+
+    void setBalance(double balance){Balance=balance;}
+    double getBalance(){return Balance;}
+
     Account(string accHolder,string accNumber,double balance){
         AccountHolder=accHolder;
         AccountNumber=accNumber;
@@ -26,7 +36,7 @@ public:
         }
         Balance+=amountDepo;
         cout<<fixed<<setprecision(2);
-        cout<<"Your Balance after depositing "<<amountDepo<<"is $"<<Balance<<endl;
+        cout<<"Your Balance after depositing "<<amountDepo<<" is $"<<Balance<<endl;
         return Balance;
 
     }
@@ -37,7 +47,7 @@ public:
         Balance=Balance-amountWithdraw;
 
         cout<<fixed<<setprecision(2);
-        cout<<"Your Balance after withdrawing "<<amountWithdraw<<"is $"<<Balance<<endl;
+        cout<<"Your Balance after withdrawing "<<amountWithdraw<<" is $"<<Balance<<endl;
         return Balance;
     }
     void checkBalance(){
@@ -46,7 +56,21 @@ public:
 
 
 }; //semicolon is important after defining a class
-class Transaction{
+class Transaction:Account{
+public:
+    string timestamp;
+    string desciption;
+    string transactionId;
+
+    Transaction(string tstamp,string descipt,string transactId,string accHolder,string accNumber,double balance)
+        :Account(accHolder,accNumber,balance)
+    {   
+        timestamp=tstamp;
+        desciption=descipt;
+        transactionId=transactId;
+
+    }
+
 
 };
 int main(){
