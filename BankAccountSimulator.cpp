@@ -51,7 +51,7 @@ public:
         AccountHolder=accHolder;
         AccountNumber=accNumber;
         Balance=initBalance;
-        transactions.push_back(Transaction("Account Opening",initBalance,initBalance)); //to initial balance becuase nothing will change initially
+        transactions.push_back(Transaction("Account Opening",initBalance,initBalance)); //to initial balance becuase nothing will change initially //more on this?
 
     }
 
@@ -76,7 +76,7 @@ public:
         }
         Balance=Balance-amountWithdraw;
 
-        transactions.push_back(Transaction("WithDrawal",amountWithdraw,Balance));
+        transactions.push_back(Transaction("WithDrawal",amountWithdraw,Balance)); //more on this
         
         cout<<fixed<<setprecision(2);
         cout<<"Withdraw |$"<<amountWithdraw<<"| New Balance |"<<Balance<<"|"<<endl;
@@ -93,10 +93,10 @@ public:
         cout<<"AccountHolder: "<<AccountHolder<<endl;
         cout<<"----------------------------------------------------"<<endl;
         
-        for(const auto& transact:transactions){
+        for(const auto& transact:transactions){  //more on this
             transact.getTransactionDetatils();
         }
-       
+
         checkBalance();
     }
 
@@ -110,9 +110,10 @@ int main(){
 
     acc1.withdraw(90.0);
     acc1.checkBalance();
-    
+
     acc1.deposit(50000);
     acc1.checkBalance();
+    acc1.TransactionHistory();
     //acc1.AccountHolder="bit"; begets error as it is declared private
 
 
