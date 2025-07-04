@@ -44,7 +44,13 @@ int main(){
         
             cin>>guess;
             guess=toupper(guess);
-            if(guess==correct[i]){
+            if(guess<'A' || guess>'D'){
+                cout<<"Your answer should be from A to D. Try again:"<<endl;
+                cin.clear();
+                cin.ignore(1000,'\n');
+                
+            }
+            else if(guess==correct[i]){
                 cout<<"Correct"<<endl;
                 score++;
             }
@@ -58,8 +64,10 @@ int main(){
         cout<<"Would like to continue(y/n): ";
 
         cin>>t;
-        while(t!='n'&& t!='N'&& t!='Y'&& t!='y'){
+        if(t!='n'&& t!='N'&& t!='Y'&& t!='y'){
             cout<<"Invalid input only y or n are valid"<<endl;
+            cin.clear();
+            cin.ignore(1000,'\n');
         }
         
 
