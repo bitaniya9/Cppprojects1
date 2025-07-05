@@ -22,14 +22,17 @@ int main(){
 
     char correct[]={'C','D','A','B'};
     int size=sizeof(questions)/sizeof(questions[0]);
+    //int numofChoice=sizeof(choice)/sizeof(choice[0][0]);
     
     char guess;
-    int score=0;
+    
     char t;
-
+    
+    
 
     do{
         cout<<"Welcome to the quiz game!"<<endl;
+        int score=0;    //moved the score varaible to the do while loop so that if player wanted to play again it will always start from 0 and not the previous
         
         for(int i=0;i<size;i++){
             
@@ -40,41 +43,50 @@ int main(){
                 cout<<choice[i][j]<<endl;
 
             }
-            
-        
-            cin>>guess;
-            guess=toupper(guess);
-            if(guess<'A' || guess>'D'){
-                cout<<"Your answer should be from A to D. Try again:"<<endl;
-                cin.clear();
-                cin.ignore(1000,'\n');
-                
+                       
+            bool validInput=false;
+            while(!validInput){
+                cin>>guess;
+                guess=toupper(guess);
+                //cin.ignore('1000','\n');
+                if(guess>='A' && guess<='D'){
+                    validInput=true;
+                }
+                else{
+                    cout<<"Your answer should be from A to D. Try again:"<<endl;
+                    cin.clear();
+                    cin.ignore(1000,'\n');
+                }
             }
-            else if(guess==correct[i]){
+            if(guess==correct[i]){
                 cout<<"Correct"<<endl;
                 score++;
             }
             else{
                 cout<<"Wrong"<<endl;
                 cout<<"The correct answer was "<<correct[i]<<endl;
-            }
+            }   
         }
         cout<<"You have scored a: "<<score<<"/"<<size<<endl;
 
-        cout<<"Would like to continue(y/n): ";
+        cout<<"Would like to try again (y/n): ";
 
-        cin>>t;
-        if(t!='n'&& t!='N'&& t!='Y'&& t!='y'){
-            cout<<"Invalid input only y or n are valid"<<endl;
-            cin.clear();
-            cin.ignore(1000,'\n');
-        }
         
+        bool validInput=false;
+        while(!validInput){
+            
+            cin>>t;
+            if(t=='n'|| t=='N'|| t=='Y'|| t=='y'){
+                validInput=true;
+            }
+            else{
+                cout<<"Invalid input only y or n are valid"<<endl;
+                cin.clear();
+                cin.ignore(1000,'\n');
+            }
 
-    }while(t=='y'&& t=='Y');
-    
+        }
 
-
-
+    }while(t=='y'||t=='Y');
     
 }
