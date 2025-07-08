@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include <vector>
+#include <vector>    //transaction stored in vector
 #include <ctime>
 #include <iomanip> //to use setprecision
 
@@ -12,7 +12,7 @@ public: //makes it accessable to child classes
     double balanceafter;
     double amount;
     
-    Transaction(string descrip,double balanceAfter,double amt){  
+    Transaction(string descrip,double balanceAfter,double amt){  //no need to add timestamp since we are generating time below
         description=descrip;
         balanceafter=balanceAfter; 
         amount=amt;
