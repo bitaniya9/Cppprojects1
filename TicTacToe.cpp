@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include <iostream>
 #include <string>
 
@@ -113,14 +114,7 @@ public:
         return false;
     }
     
-    // void makeEmpty(){
-    //     int row,column=3;
-    //     for(int i=0;i<row;i++){
-    //         for(int j=0;j<column;j++){
-    //             board[i][j]=' ';
-    //         }
-    //     }
-    // }
+    
 
 };
 
@@ -278,6 +272,5 @@ int main(){
     
     return 0;
     
-
 
 }
